@@ -6,7 +6,7 @@ from tkinter import ttk
 
 # Define Window Properties
 root = Tk()
-root.title("GimpyTool v0.1")
+root.title("GimpyTool v0.2")
 root.iconbitmap("icons/GIM Icon.png")
 root.resizable(False, False)
 root.geometry("1280x720")
@@ -14,9 +14,28 @@ root.geometry("1280x720")
 # Set up the grids
 frame1 = ttk.Frame(root, width=240, height=700)
 frame1.grid(column=1, row=0, sticky=(N, W, E, S))
-frame1.pack(fill="both", expand=True, padx=10, pady=10)
 root.columnconfigure(0, weight=1)
 root.rowconfigure(0, weight=1)
+
+frame2 = ttk.Frame(root, width=240, height=700)
+frame2.grid(column=2, row=0, sticky=(N, W, E, S))
+root.columnconfigure(0, weight=1)
+root.rowconfigure(0, weight=2)
+
+frame3 = ttk.Frame(root, width=240, height=700)
+frame3.grid(column=3, row=0, sticky=(N, W, E, S))
+root.columnconfigure(0, weight=1)
+root.rowconfigure(0, weight=2)
+
+frame4 = ttk.Frame(root, width=240, height=700)
+frame4.grid(column=4, row=0, sticky=(N, W, E, S))
+root.columnconfigure(0, weight=1)
+root.rowconfigure(0, weight=2)
+
+frame5 = ttk.Frame(root, width=240, height=700)
+frame5.grid(column=5, row=0, sticky=(N, W, E, S))
+root.columnconfigure(0, weight=1)
+root.rowconfigure(0, weight=2)
 
 
 # Get list of names for lookup
@@ -47,10 +66,10 @@ farmingIcon = tkinter.PhotoImage(file="icons/Farming_icon.png")
 constructionIcon = tkinter.PhotoImage(file="icons/Construction_icon.png")
 hunterIcon = tkinter.PhotoImage(file="icons/Hunter_icon.png")
 totalIcon = tkinter.PhotoImage(file="icons/Skills_icon.png")
+gimpIcon = tkinter.PhotoImage(file="icons/GIM Icon.png")
 
 
 # Get the list of levels from HiScores
-
 global p1Stats, p2Stats, p3Stats, p4Stats, p5Stats
 
 def getLevels():
@@ -61,7 +80,11 @@ def getLevels():
     p4Stats = Highscores(names[3])
     p5Stats = Highscores(names[4])
 
-    drawLabels(p1Stats)
+    drawLabels(p1Stats,frame1,0)
+    drawLabels(p2Stats,frame2,1)
+    drawLabels(p3Stats,frame3,2)
+    drawLabels(p4Stats,frame4,3)
+    drawLabels(p5Stats,frame5,4)
 
 
 # Draws a button to query the highscores, so the program doesn't immediately grab them and hang on launch
@@ -70,129 +93,136 @@ btnFetch.grid(column=1, row=1)
 
 
 # Method to draw labels to a grid, should ideally get used 5 times without having to re-query HS
-def drawLabels(person):
-    labelName1 = ttk.Label(frame1, text=names[0])
-    labelName1.grid(column=2, row=2)
+def drawLabels(person, frame, index):
+    labelName = ttk.Label(frame, text=names[index])
+    labelName.grid(column=2, row=2)
+    labelName["compound"] = tkinter.LEFT
+    labelName["image"] = gimpIcon
 
-    labelAttack1 = ttk.Label(frame1, text=person.attack.level)
-    labelAttack1.grid(column=1, row=3)
-    labelAttack1["compound"] = tkinter.LEFT
-    labelAttack1["image"] = attackIcon
+    lblWidth = 6
 
-    labelHitpoints1 = ttk.Label(frame1, text=person.hitpoints.level)
-    labelHitpoints1.grid(column=2, row=3)
-    labelHitpoints1["compound"] = tkinter.LEFT
-    labelHitpoints1["image"] = hitpointsIcon
+    labelAttack = ttk.Label(frame, text=person.attack.level, width=lblWidth)
+    labelAttack.grid(column=1, row=3)
+    labelAttack["compound"] = tkinter.LEFT
+    labelAttack["image"] = attackIcon
 
-    labelMining1 = ttk.Label(frame1, text=person.mining.level)
-    labelMining1.grid(column=3, row=3)
-    labelMining1["compound"] = tkinter.LEFT
-    labelMining1["image"] = miningIcon
+    labelHitpoints = ttk.Label(frame, text=person.hitpoints.level, width=lblWidth)
+    labelHitpoints.grid(column=2, row=3)
+    labelHitpoints["compound"] = tkinter.LEFT
+    labelHitpoints["image"] = hitpointsIcon
 
-    labelStrength1 = ttk.Label(frame1, text=person.strength.level)
-    labelStrength1.grid(column=1, row=4)
-    labelStrength1["compound"] = tkinter.LEFT
-    labelStrength1["image"] = strengthIcon
+    labelMining = ttk.Label(frame, text=person.mining.level, width=lblWidth)
+    labelMining.grid(column=3, row=3)
+    labelMining["compound"] = tkinter.LEFT
+    labelMining["image"] = miningIcon
 
-    labelAgility1 = ttk.Label(frame1, text=person.agility.level)
-    labelAgility1.grid(column=2, row=4)
-    labelAgility1["compound"] = tkinter.LEFT
-    labelAgility1["image"] = agilityIcon
+    labelStrength = ttk.Label(frame, text=person.strength.level, width=lblWidth)
+    labelStrength.grid(column=1, row=4)
+    labelStrength["compound"] = tkinter.LEFT
+    labelStrength["image"] = strengthIcon
 
-    labelSmithing1 = ttk.Label(frame1, text=person.smithing.level)
-    labelSmithing1.grid(column=3, row=4)
-    labelSmithing1["compound"] = tkinter.LEFT
-    labelSmithing1["image"] = smithingIcon
+    labelAgility = ttk.Label(frame, text=person.agility.level, width=lblWidth)
+    labelAgility.grid(column=2, row=4)
+    labelAgility["compound"] = tkinter.LEFT
+    labelAgility["image"] = agilityIcon
 
-    labelDefence1 = ttk.Label(frame1, text=person.defence.level)
-    labelDefence1.grid(column=1, row=5)
-    labelDefence1["compound"] = tkinter.LEFT
-    labelDefence1["image"] = defenceIcon
+    labelSmithing = ttk.Label(frame, text=person.smithing.level, width=lblWidth)
+    labelSmithing.grid(column=3, row=4)
+    labelSmithing["compound"] = tkinter.LEFT
+    labelSmithing["image"] = smithingIcon
 
-    labelHerblore1 = ttk.Label(frame1, text=person.herblore.level)
-    labelHerblore1.grid(column=2, row=5)
-    labelHerblore1["compound"] = tkinter.LEFT
-    labelHerblore1["image"] = herbloreIcon
+    labelDefence = ttk.Label(frame, text=person.defence.level, width=lblWidth)
+    labelDefence.grid(column=1, row=5)
+    labelDefence["compound"] = tkinter.LEFT
+    labelDefence["image"] = defenceIcon
 
-    labelFishing1 = ttk.Label(frame1, text=person.fishing.level)
-    labelFishing1.grid(column=3, row=5)
-    labelFishing1["compound"] = tkinter.LEFT
-    labelFishing1["image"] = fishingIcon
+    labelHerblore = ttk.Label(frame, text=person.herblore.level, width=lblWidth)
+    labelHerblore.grid(column=2, row=5)
+    labelHerblore["compound"] = tkinter.LEFT
+    labelHerblore["image"] = herbloreIcon
 
-    labelRanged1 = ttk.Label(frame1, text=person.ranged.level)
-    labelRanged1.grid(column=1, row=6)
-    labelRanged1["compound"] = tkinter.LEFT
-    labelRanged1["image"] = rangedIcon
+    labelFishing = ttk.Label(frame, text=person.fishing.level, width=lblWidth)
+    labelFishing.grid(column=3, row=5)
+    labelFishing["compound"] = tkinter.LEFT
+    labelFishing["image"] = fishingIcon
 
-    labelThieving1 = ttk.Label(frame1, text=person.hitpoints.level)
-    labelThieving1.grid(column=2, row=6)
-    labelThieving1["compound"] = tkinter.LEFT
-    labelThieving1["image"] = thievingIcon
+    labelRanged = ttk.Label(frame, text=person.ranged.level, width=lblWidth)
+    labelRanged.grid(column=1, row=6)
+    labelRanged["compound"] = tkinter.LEFT
+    labelRanged["image"] = rangedIcon
 
-    labelCooking1 = ttk.Label(frame1, text=person.cooking.level)
-    labelCooking1.grid(column=3, row=6)
-    labelCooking1["compound"] = tkinter.LEFT
-    labelCooking1["image"] = cookingIcon
+    labelThieving = ttk.Label(frame, text=person.hitpoints.level, width=lblWidth)
+    labelThieving.grid(column=2, row=6)
+    labelThieving["compound"] = tkinter.LEFT
+    labelThieving["image"] = thievingIcon
 
-    labelPrayer1 = ttk.Label(frame1, text=person.prayer.level)
-    labelPrayer1.grid(column=1, row=7)
-    labelPrayer1["compound"] = tkinter.LEFT
-    labelPrayer1["image"] = prayerIcon
+    labelCooking = ttk.Label(frame, text=person.cooking.level, width=lblWidth)
+    labelCooking.grid(column=3, row=6)
+    labelCooking["compound"] = tkinter.LEFT
+    labelCooking["image"] = cookingIcon
 
-    labelCrafting1 = ttk.Label(frame1, text=person.crafting.level)
-    labelCrafting1.grid(column=2, row=7)
-    labelCrafting1["compound"] = tkinter.LEFT
-    labelCrafting1["image"] = craftingIcon
+    labelPrayer = ttk.Label(frame, text=person.prayer.level, width=lblWidth)
+    labelPrayer.grid(column=1, row=7)
+    labelPrayer["compound"] = tkinter.LEFT
+    labelPrayer["image"] = prayerIcon
 
-    labelFiremaking1 = ttk.Label(frame1, text=person.firemaking.level)
-    labelFiremaking1.grid(column=3, row=7)
-    labelFiremaking1["compound"] = tkinter.LEFT
-    labelFiremaking1["image"] = firemakingIcon
+    labelCrafting = ttk.Label(frame, text=person.crafting.level, width=lblWidth)
+    labelCrafting.grid(column=2, row=7)
+    labelCrafting["compound"] = tkinter.LEFT
+    labelCrafting["image"] = craftingIcon
 
-    labelMagic1 = ttk.Label(frame1, text=person.magic.level)
-    labelMagic1.grid(column=1, row=8)
-    labelMagic1["compound"] = tkinter.LEFT
-    labelMagic1["image"] = magicIcon
+    labelFiremaking = ttk.Label(frame, text=person.firemaking.level, width=lblWidth)
+    labelFiremaking.grid(column=3, row=7)
+    labelFiremaking["compound"] = tkinter.LEFT
+    labelFiremaking["image"] = firemakingIcon
 
-    labelFletching1 = ttk.Label(frame1, text=person.fletching.level)
-    labelFletching1.grid(column=2, row=8)
-    labelFletching1["compound"] = tkinter.LEFT
-    labelFletching1["image"] = fletchingIcon
+    labelMagic = ttk.Label(frame, text=person.magic.level, width=lblWidth)
+    labelMagic.grid(column=1, row=8)
+    labelMagic["compound"] = tkinter.LEFT
+    labelMagic["image"] = magicIcon
 
-    labelWoodcutting1 = ttk.Label(frame1, text=person.woodcutting.level)
-    labelWoodcutting1.grid(column=3, row=8)
-    labelWoodcutting1["compound"] = tkinter.LEFT
-    labelWoodcutting1["image"] = woodcuttingIcon
+    labelFletching = ttk.Label(frame, text=person.fletching.level, width=lblWidth)
+    labelFletching.grid(column=2, row=8)
+    labelFletching["compound"] = tkinter.LEFT
+    labelFletching["image"] = fletchingIcon
 
-    labelRunecraft1 = ttk.Label(frame1, text=person.runecraft.level)
-    labelRunecraft1.grid(column=1, row=9)
-    labelRunecraft1["compound"] = tkinter.LEFT
-    labelRunecraft1["image"] = runecraftIcon
+    labelWoodcutting = ttk.Label(frame, text=person.woodcutting.level, width=lblWidth)
+    labelWoodcutting.grid(column=3, row=8)
+    labelWoodcutting["compound"] = tkinter.LEFT
+    labelWoodcutting["image"] = woodcuttingIcon
 
-    labelSlayer1 = ttk.Label(frame1, text=person.slayer.level)
-    labelSlayer1.grid(column=2, row=9)
-    labelSlayer1["compound"] = tkinter.LEFT
-    labelSlayer1["image"] = slayerIcon
+    labelRunecraft = ttk.Label(frame, text=person.runecraft.level, width=lblWidth)
+    labelRunecraft.grid(column=1, row=9)
+    labelRunecraft["compound"] = tkinter.LEFT
+    labelRunecraft["image"] = runecraftIcon
 
-    labelFarming1 = ttk.Label(frame1, text=person.farming.level)
-    labelFarming1.grid(column=3, row=9)
-    labelFarming1["compound"] = tkinter.LEFT
-    labelFarming1["image"] = farmingIcon
+    labelSlayer = ttk.Label(frame, text=person.slayer.level, width=lblWidth)
+    labelSlayer.grid(column=2, row=9)
+    labelSlayer["compound"] = tkinter.LEFT
+    labelSlayer["image"] = slayerIcon
 
-    labelConstruction1 = ttk.Label(frame1, text=person.construction.level)
-    labelConstruction1.grid(column=1, row=10)
-    labelConstruction1["compound"] = tkinter.LEFT
-    labelConstruction1["image"] = constructionIcon
+    labelFarming = ttk.Label(frame, text=person.farming.level, width=lblWidth)
+    labelFarming.grid(column=3, row=9)
+    labelFarming["compound"] = tkinter.LEFT
+    labelFarming["image"] = farmingIcon
 
-    labelHunter1 = ttk.Label(frame1, text=person.hunter.level)
-    labelHunter1.grid(column=2, row=10)
-    labelHunter1["compound"] = tkinter.LEFT
-    labelHunter1["image"] = hunterIcon
+    labelConstruction = ttk.Label(frame, text=person.construction.level, width=lblWidth)
+    labelConstruction.grid(column=1, row=10)
+    labelConstruction["compound"] = tkinter.LEFT
+    labelConstruction["image"] = constructionIcon
 
-    labelTotal1 = ttk.Label(frame1, text=person.overall.level)
-    labelTotal1.grid(column=3, row=10)
-    labelTotal1["compound"] = tkinter.LEFT
-    labelTotal1["image"] = totalIcon
+    labelHunter = ttk.Label(frame, text=person.hunter.level, width=lblWidth)
+    labelHunter.grid(column=2, row=10)
+    labelHunter["compound"] = tkinter.LEFT
+    labelHunter["image"] = hunterIcon
+
+    labelTotal = ttk.Label(frame, text=person.overall.level, width=lblWidth)
+    labelTotal.grid(column=3, row=10)
+    labelTotal["compound"] = tkinter.LEFT
+    labelTotal["image"] = totalIcon
+
+    for child in frame1.winfo_children():
+        child.grid_configure(padx=3, pady=3)
 
 
 # Run the loop
