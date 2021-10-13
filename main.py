@@ -6,40 +6,49 @@ from tkinter import ttk
 
 # Define Window Properties
 root = Tk()
-root.title("GimpyTool v0.2")
+root.title("GimpyTool v0.3")
 root.iconbitmap("icons/GIM Icon.png")
 root.resizable(False, False)
-root.geometry("1280x720")
+root.geometry("1150x300")
 
 # Set up the grids
-frame1 = ttk.Frame(root, width=240, height=700)
-frame1.grid(column=1, row=0, sticky=(N, W, E, S))
-root.columnconfigure(0, weight=1)
+frame1 = tkinter.Frame(root)
+frame1.grid(column=1, row=1, sticky=(N, W, E, S))
+root.columnconfigure(0, weight=0)
 root.rowconfigure(0, weight=1)
+frame1['borderwidth'] = 2
+frame1['relief'] = 'ridge'
 
-frame2 = ttk.Frame(root, width=240, height=700)
-frame2.grid(column=2, row=0, sticky=(N, W, E, S))
-root.columnconfigure(0, weight=1)
+frame2 = tkinter.Frame(root)
+frame2.grid(column=2, row=1, sticky=(N, W, E, S))
+root.columnconfigure(0, weight=0)
 root.rowconfigure(0, weight=2)
+frame2['borderwidth'] = 2
+frame2['relief'] = 'ridge'
 
-frame3 = ttk.Frame(root, width=240, height=700)
-frame3.grid(column=3, row=0, sticky=(N, W, E, S))
-root.columnconfigure(0, weight=1)
-root.rowconfigure(0, weight=2)
+frame3 = tkinter.Frame(root)
+frame3.grid(column=3, row=1, sticky=(N, W, E, S))
+root.columnconfigure(0, weight=0)
+root.rowconfigure(0, weight=3)
+frame3['borderwidth'] = 2
+frame3['relief'] = 'ridge'
 
-frame4 = ttk.Frame(root, width=240, height=700)
-frame4.grid(column=4, row=0, sticky=(N, W, E, S))
-root.columnconfigure(0, weight=1)
-root.rowconfigure(0, weight=2)
+frame4 = tkinter.Frame(root)
+frame4.grid(column=4, row=1, sticky=(N, W, E, S))
+root.columnconfigure(0, weight=0)
+root.rowconfigure(0, weight=4)
+frame4['borderwidth'] = 2
+frame4['relief'] = 'ridge'
 
-frame5 = ttk.Frame(root, width=240, height=700)
-frame5.grid(column=5, row=0, sticky=(N, W, E, S))
-root.columnconfigure(0, weight=1)
-root.rowconfigure(0, weight=2)
-
+frame5 = tkinter.Frame(root)
+frame5.grid(column=5, row=1, sticky=(N, W, E, S))
+root.columnconfigure(0, weight=0)
+root.rowconfigure(0, weight=5)
+frame5['borderwidth'] = 2
+frame5['relief'] = 'ridge'
 
 # Get list of names for lookup
-names = ["Gimpy Tyler", "Tylooor", "Gimpy Fresco", "Gimpy Hodge", "Gimpy DrCat"]
+names = ["Gimpy Tyler", "Gimpy Fresco", "Gimpy Hodge", "Gimpy DrCat", "Tylooor"]
 
 # Define all skill icons
 attackIcon = tkinter.PhotoImage(file="icons/Attack_icon.png")
@@ -88,8 +97,8 @@ def getLevels():
 
 
 # Draws a button to query the highscores, so the program doesn't immediately grab them and hang on launch
-btnFetch = ttk.Button(frame1, text="Fetch Scores", command=lambda: getLevels())
-btnFetch.grid(column=1, row=1)
+btnFetch = ttk.Button(root, text="Fetch Scores", command=lambda: getLevels())
+btnFetch.place(bordermode=OUTSIDE, height=30, width=80)
 
 
 # Method to draw labels to a grid, should ideally get used 5 times without having to re-query HS
@@ -221,8 +230,8 @@ def drawLabels(person, frame, index):
     labelTotal["compound"] = tkinter.LEFT
     labelTotal["image"] = totalIcon
 
-    for child in frame1.winfo_children():
-        child.grid_configure(padx=3, pady=3)
+    for child in frame.winfo_children():
+        child.grid_configure(padx=1, pady=1)
 
 
 # Run the loop
